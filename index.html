@@ -3,53 +3,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Er. Ankur Rai | Civil Engineer</title><style>
 body{font-family:Arial;margin:0;background:#f4f4f4}
-
 header{background:#0d1b2a;color:white;padding:25px;text-align:center}
-
 nav{background:#1b263b;padding:12px;text-align:center}
-
 nav a{color:white;margin:15px;text-decoration:none;font-weight:bold}
-
 section{padding:40px;text-align:center}
-
 .services{display:flex;flex-wrap:wrap;justify-content:center}
-
-.services div{
-background:white;width:220px;margin:10px;padding:20px;
-border-radius:10px;box-shadow:0 0 10px #ccc
-}
-
+.services div{background:white;width:220px;margin:10px;padding:20px;border-radius:10px;box-shadow:0 0 10px #ccc}
 .gallery img{width:260px;margin:10px;border-radius:10px}
-
-.box{
-background:white;padding:25px;max-width:400px;margin:auto;
-border-radius:10px;box-shadow:0 0 10px #ccc
-}
-
-input,textarea{
-width:100%;padding:10px;margin:10px 0;
-border:1px solid #ccc;border-radius:5px
-}
-
-button{
-background:#0d1b2a;color:white;padding:10px;
-border:none;border-radius:5px;width:100%
-}
-
-.whatsapp{
-position:fixed;bottom:20px;right:20px;
-background:#25D366;color:white;padding:15px 20px;
-border-radius:40px;text-decoration:none
-}
-
-.call{
-position:fixed;bottom:80px;right:20px;
-background:#007BFF;color:white;padding:15px 20px;
-border-radius:40px;text-decoration:none
-}
-
+.box{background:white;padding:25px;max-width:400px;margin:auto;border-radius:10px;box-shadow:0 0 10px #ccc}
+input,textarea{width:100%;padding:10px;margin:10px 0;border:1px solid #ccc;border-radius:5px}
+button{background:#0d1b2a;color:white;padding:10px;border:none;border-radius:5px;width:100%}
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:15px 20px;border-radius:40px;text-decoration:none}
+.call{position:fixed;bottom:80px;right:20px;background:#007BFF;color:white;padding:15px 20px;border-radius:40px;text-decoration:none}
 footer{background:#0d1b2a;color:white;padding:20px;text-align:center}
-
 </style><script>
 
 function costCalc(){
@@ -58,27 +24,52 @@ var cost=area*1450
 document.getElementById("cost").innerHTML="Estimated Cost ₹ "+cost
 }
 
+function materialCalc(){
+var area=document.getElementById("area2").value
+var cement=area*0.4
+var sand=area*0.6
+var steel=area*4
+document.getElementById("mat").innerHTML=
+"Cement Bags: "+cement+
+"<br>Sand: "+sand+
+"<br>Steel: "+steel+" kg"
+}
+
+function slabCalc(){
+var length=document.getElementById("len").value
+var width=document.getElementById("wid").value
+var steel=length*width*4
+document.getElementById("slab").innerHTML=
+"Estimated Steel Required: "+steel+" kg"
+}
+
 function concreteCalc(){
 
 var l=parseFloat(document.getElementById("cl").value);
 var b=parseFloat(document.getElementById("cb").value);
 var d=parseFloat(document.getElementById("cd").value);
-var grade=document.getElementById("grade").value.toUpperCase();
+var grade=document.getElementById("grade").value.toUpperCase().replace(".", "");
+
+// validation
+if(isNaN(l)||isNaN(b)||isNaN(d)){
+alert("Enter Length, Breadth, Depth");
+return;
+}
 
 var wet=l*b*d;
 var dry=wet*1.54;
 
 var ratioMap={
 "M5":[1,5,10],
-"M7.5":[1,4,8],
+"M75":[1,4,8],
 "M10":[1,3,6],
 "M15":[1,2,4],
 "M20":[1,1.5,3],
 "M25":[1,1,2]
 };
-  
+
 if(!ratioMap[grade]){
-alert("Enter valid grade like M5, M10, M15, M20, M25");
+alert("Enter valid grade like M5, M7.5, M10, M15, M20, M25");
 return;
 }
 
@@ -97,21 +88,9 @@ document.getElementById("concrete").innerHTML=
 "<br>Cement: "+bags.toFixed(1)+" bags"+
 "<br>Sand: "+sandVol.toFixed(2)+" m³"+
 "<br>Aggregate: "+aggVol.toFixed(2)+" m³";
-
-}
-
-function slabCalc(){
-var length=document.getElementById("len").value
-var width=document.getElementById("wid").value
-
-var steel=length*width*4
-
-document.getElementById("slab").innerHTML=
-"Estimated Steel Required: "+steel+" kg"
 }
 
 function sendMsg(){
-
 var name=document.getElementById("name").value
 var phone=document.getElementById("phone").value
 var msg=document.getElementById("msg").value
@@ -122,42 +101,85 @@ var url="https://wa.me/919682863575?text="
 +"Message: "+msg
 
 window.open(url)
-
 }
 
-</script></head><body><header><h1>Er. Ankur Rai</h1>
-<p>Civil Engineer | House Planning | Structural Design</p></header><nav><a href="#">Home</a>
+</script></head><body><header>
+<h1>Er. Ankur Rai</h1>
+<p>Civil Engineer | House Planning | Structural Design</p>
+</header><nav>
+<a href="#">Home</a>
 <a href="#services">Services</a>
 <a href="#projects">Projects</a>
 <a href="#cost">Cost</a>
 <a href="#material">Material</a>
-<a href="#slab">Slab Steel</a>
+<a href="#concrete">Concrete</a>
+<a href="#slab">Slab</a>
 <a href="#contact">Contact</a>
-
-</nav><section><h2>Professional Civil Engineering Services</h2>
-<p>House Planning | Structural Design | Estimation | Site Supervision</p></section><section id="services"><h2>Services</h2><div class="services"><div>House Planning</div>
+</nav><section>
+<h2>Professional Civil Engineering Services</h2>
+<p>House Planning | Structural Design | Estimation | Site Supervision</p>
+</section><section id="services">
+<h2>Services</h2>
+<div class="services">
+<div>House Planning</div>
 <div>2D / 3D Drawing</div>
 <div>Structural Design</div>
 <div>Estimation & BOQ</div>
 <div>Site Supervision</div>
-<div>Building Construction</div></div></section><section id="projects"><h2>Projects</h2><div class="gallery"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e">
+<div>Construction</div>
+</div>
+</section><section id="projects">
+<h2>Projects</h2>
+<div class="gallery">
+<img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e">
 <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625">
-<img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6"></div></section><section id="cost"><h2>Construction Cost Calculator</h2><div class="box"><input id="area" placeholder="Area (sqft)">
-<button onclick="costCalc()">Calculate</button><h3 id="cost"></h3></div></section><section id="material"><h2>Material Calculator</h2><div class="box"><input id="area2" placeholder="Area (sqft)">
-<button onclick="materialCalc()">Calculate</button><h3 id="mat"></h3></div></section><section id="slab"><h2>Slab Steel Calculator</h2><div class="box"><input id="len" placeholder="Length (ft)">
-<input id="wid" placeholder="Width (ft)"><button onclick="slabCalc()">Calculate</button>
-
-<h3 id="slab"></h3></div></section><section id="contact"><h2>Contact Engineer</h2><input id="name" placeholder="Your Name">
-<input id="phone" placeholder="Mobile"><textarea id="msg" placeholder="Message"></textarea><button onclick="sendMsg()">Send Message</button>
-
+<img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6">
+</div>
+</section><section id="cost">
+<h2>Construction Cost Calculator</h2>
+<div class="box">
+<input id="area" placeholder="Area (sqft)">
+<button onclick="costCalc()">Calculate</button>
+<h3 id="cost"></h3>
+</div>
+</section><section id="material">
+<h2>Material Calculator</h2>
+<div class="box">
+<input id="area2" placeholder="Area (sqft)">
+<button onclick="materialCalc()">Calculate</button>
+<h3 id="mat"></h3>
+</div>
+</section><section id="concrete">
+<h2>Concrete Calculator</h2>
+<div class="box">
+<input id="cl" placeholder="Length (m)">
+<input id="cb" placeholder="Breadth (m)">
+<input id="cd" placeholder="Depth (m)">
+<input id="grade" placeholder="Grade (M5, M7.5, M10, M15, M20, M25)">
+<button onclick="concreteCalc()">Calculate</button>
+<h3 id="concrete"></h3>
+</div>
+</section><section id="slab">
+<h2>Slab Steel Calculator</h2>
+<div class="box">
+<input id="len" placeholder="Length (ft)">
+<input id="wid" placeholder="Width (ft)">
+<button onclick="slabCalc()">Calculate</button>
+<h3 id="slab"></h3>
+</div>
+</section><section id="contact">
+<h2>Contact Engineer</h2>
+<input id="name" placeholder="Your Name">
+<input id="phone" placeholder="Mobile">
+<textarea id="msg" placeholder="Message"></textarea>
+<button onclick="sendMsg()">Send Message</button>
 <br><br>
-
-<iframe
-src="https://maps.google.com/maps?q=india&t=&z=13&ie=UTF8&iwloc=&output=embed"
-width="100%" height="250">
-</iframe></section><a class="whatsapp" href="https://wa.me/919682863575">WhatsApp</a>
-
+<iframe src="https://maps.google.com/maps?q=india&t=&z=13&ie=UTF8&iwloc=&output=embed"
+width="100%" height="250"></iframe>
+</section><a class="whatsapp" href="https://wa.me/919682863575">WhatsApp</a>
 <a class="call" href="tel:9682863575">Call</a>
 
-<footer><p>© 2026 Er. Ankur Rai | Civil Engineer</p></footer></body>
+<footer>
+<p>© 2026 Er. Ankur Rai | Civil Engineer</p>
+</footer></body>
 </html>
