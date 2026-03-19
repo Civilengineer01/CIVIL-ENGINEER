@@ -7,20 +7,11 @@
 
 <title>Er. Ankur Rai Civil Engineer | House Planning, Design & Construction</title>
 
-<meta name="description" content="Er. Ankur Rai - Professional Civil Engineer in Rajasthan. House Planning, Structural Design, BOQ, Estimation, Construction & Site Supervision Services.">
+<meta name="description" content="Er. Ankur Rai - Civil Engineer in Rajasthan. House Planning, Structural Design, BOQ, Estimation & Construction Services">
 
-<meta name="keywords" content="Civil Engineer Rajasthan, House Planning, Structural Design, BOQ, Construction, Ankur Rai">
+<meta name="keywords" content="Civil Engineer Rajasthan, House Planning, Structural Design, BOQ, Construction">
 
-<!-- Google Verification (replace code later) -->
 <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE">
-
-<!-- Location SEO -->
-<meta name="geo.region" content="IN-RJ">
-<meta name="geo.placename" content="Rajasthan">
-<meta name="geo.position" content="29.0;73.0">
-
-<!-- Sitemap -->
-<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 
 <style>
 body{font-family:Arial;margin:0;background:#f4f4f4}
@@ -30,9 +21,29 @@ nav a{color:white;margin:15px;text-decoration:none;font-weight:bold}
 section{padding:40px;text-align:center}
 .services{display:flex;flex-wrap:wrap;justify-content:center}
 .services div{background:white;width:220px;margin:10px;padding:20px;border-radius:10px;box-shadow:0 0 10px #ccc}
-.box{background:white;padding:25px;max-width:400px;margin:auto;border-radius:10px;box-shadow:0 0 10px #ccc}
+
+.gallery{display:flex;flex-wrap:wrap;justify-content:center}
+.gallery img{width:260px;margin:10px;border-radius:10px}
+
+.box{background:white;padding:20px;border-radius:10px;box-shadow:0 0 10px #ccc}
+
+.calc-container{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+max-width:1100px;
+margin:auto;
+}
+
+@media(max-width:768px){
+.calc-container{
+grid-template-columns:repeat(1,1fr);
+}
+}
+
 input,textarea,select{width:100%;padding:10px;margin:10px 0;border:1px solid #ccc;border-radius:5px}
 button{background:#0d1b2a;color:white;padding:10px;border:none;border-radius:5px;width:100%}
+
 footer{background:#0d1b2a;color:white;padding:20px;text-align:center}
 </style>
 
@@ -64,14 +75,13 @@ if(document.activeElement.id==="rate"){boqCalc()}
 })
 
 // CALCULATORS
+
 function costCalc(){
-var a=area.value
-cost.innerHTML="₹ "+(a*1450)
+cost.innerHTML="₹ "+(area.value*1450)
 }
 
 function brickCalc(){
-var v=mcube.value
-bricks.innerHTML="Bricks: "+(v*500)
+bricks.innerHTML="Bricks: "+(mcube.value*500)
 }
 
 function slabCalc(){
@@ -87,12 +97,39 @@ boq.innerHTML="₹ "+(qty.value*rate.value)
 }
 
 function concreteCalc(){
-var l=parseFloat(cl.value),b=parseFloat(cb.value),d=parseFloat(cd.value)
-var wet=l*b*d,dry=wet*1.54
-var r={"M10":[1,3,6],"M15":[1,2,4],"M20":[1,1.5,3],"M25":[1,1,2]}[grade.value]
-var s=r[0]+r[1]+r[2]
-var c=(r[0]/s)*dry
-concrete.innerHTML="Vol:"+wet.toFixed(2)+" m³<br>Cement:"+(c/0.035).toFixed(1)+" bags"
+
+var l=parseFloat(cl.value)
+var b=parseFloat(cb.value)
+var d=parseFloat(cd.value)
+var g=grade.value
+
+if(isNaN(l)||isNaN(b)||isNaN(d)){
+alert("Enter all values"); return;
+}
+
+var wet=l*b*d
+var dry=wet*1.54
+
+var ratio={
+"M5":[1,5,10],
+"M7.5":[1,4,8],
+"M10":[1,3,6],
+"M15":[1,2,4],
+"M20":[1,1.5,3],
+"M25":[1,1,2]
+}[g]
+
+var sum=ratio[0]+ratio[1]+ratio[2]
+
+var cement=(ratio[0]/sum)*dry
+var sand=(ratio[1]/sum)*dry
+var agg=(ratio[2]/sum)*dry
+
+concrete.innerHTML=
+"Volume: "+wet.toFixed(2)+" m³<br>"+
+"Cement: "+(cement/0.035).toFixed(1)+" bags<br>"+
+"Sand: "+sand.toFixed(2)+" m³<br>"+
+"Aggregate: "+agg.toFixed(2)+" m³"
 }
 
 </script>
@@ -109,73 +146,102 @@ concrete.innerHTML="Vol:"+wet.toFixed(2)+" m³<br>Cement:"+(c/0.035).toFixed(1)+
 <nav>
 <a href="#">Home</a>
 <a href="#services">Services</a>
-<a href="#cost">Cost</a>
+<a href="#projects">Projects</a>
+<a href="#calc">Calculators</a>
 <a href="#contact">Contact</a>
 </nav>
 
 <section>
-<h2>Civil Engineer in Rajasthan</h2>
-<p>We provide house planning, structural design, BOQ and construction services in Rajasthan.</p>
+<h2>Professional Civil Engineering Services</h2>
+<p>House Planning | Structural Design | BOQ | Construction</p>
 </section>
 
 <section id="services">
 <h2>Our Services</h2>
 <div class="services">
 <div>House Planning</div>
+<div>2D / 3D Drawing</div>
 <div>Structural Design</div>
 <div>BOQ & Estimation</div>
 <div>Construction</div>
 </div>
 </section>
 
-<section id="cost">
-<h2>Construction Calculator</h2>
+<!-- IMAGE GALLERY -->
+<section id="projects">
+<h2>Our Civil Engineering Work</h2>
+<div class="gallery">
+<img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e">
+<img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625">
+<img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6">
+<img src="https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0">
+<img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be">
+<img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd">
+</div>
+</section>
+
+<!-- CALCULATORS -->
+<section id="calc">
+<h2>Engineering Calculators</h2>
+
+<div class="calc-container">
 
 <div class="box">
-<input id="area" placeholder="Area sqft">
-<button onclick="costCalc()">Cost</button>
+<h3>Construction Cost</h3>
+<input id="area" placeholder="Area (sqft)">
+<button onclick="costCalc()">Calculate</button>
 <h3 id="cost"></h3>
 </div>
 
 <div class="box">
-<input id="mcube" placeholder="Volume m³">
-<button onclick="brickCalc()">Bricks</button>
+<h3>Bricks Calculator</h3>
+<input id="mcube" placeholder="Volume (m³)">
+<button onclick="brickCalc()">Calculate</button>
 <h3 id="bricks"></h3>
 </div>
 
 <div class="box">
+<h3>Concrete Calculator</h3>
 <input id="cl" placeholder="Length">
 <input id="cb" placeholder="Breadth">
 <input id="cd" placeholder="Depth">
 <select id="grade">
-<option>M10</option><option>M15</option>
-<option>M20</option><option>M25</option>
+<option>M5</option>
+<option>M7.5</option>
+<option>M10</option>
+<option>M15</option>
+<option>M20</option>
+<option>M25</option>
 </select>
-<button onclick="concreteCalc()">Concrete</button>
+<button onclick="concreteCalc()">Calculate</button>
 <h3 id="concrete"></h3>
 </div>
 
 <div class="box">
+<h3>Slab Steel</h3>
 <input id="len" placeholder="Length">
 <input id="wid" placeholder="Width">
-<button onclick="slabCalc()">Slab Steel</button>
+<button onclick="slabCalc()">Calculate</button>
 <h3 id="slab"></h3>
 </div>
 
 <div class="box">
-<input id="dia" placeholder="Dia mm">
-<input id="slen" placeholder="Length m">
-<button onclick="steelCalc()">Steel Weight</button>
+<h3>Steel Weight</h3>
+<input id="dia" placeholder="Diameter (mm)">
+<input id="slen" placeholder="Length (m)">
+<button onclick="steelCalc()">Calculate</button>
 <h3 id="steel"></h3>
 </div>
 
 <div class="box">
+<h3>BOQ Calculator</h3>
 <input id="qty" placeholder="Quantity">
 <input id="rate" placeholder="Rate">
-<button onclick="boqCalc()">BOQ</button>
+<button onclick="boqCalc()">Calculate</button>
 <h3 id="boq"></h3>
 </div>
 
+</div>
 </section>
 
 <section id="contact">
@@ -186,7 +252,7 @@ concrete.innerHTML="Vol:"+wet.toFixed(2)+" m³<br>Cement:"+(c/0.035).toFixed(1)+
 </section>
 
 <footer>
-© 2026 Er. Ankur Rai Civil Engineer
+<p>© 2026 Er. Ankur Rai Civil Engineer</p>
 </footer>
 
 </body>
