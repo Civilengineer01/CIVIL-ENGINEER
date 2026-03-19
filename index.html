@@ -25,10 +25,10 @@ document.getElementById("cost").innerHTML="Estimated Cost ₹ "+cost
 }
 
 function brickCalc(){
-var area=document.getElementById("metercube").value
-var bricks=metercube*500
+var area=document.getElementById("mcube").value
+var bricks=mcube*500
 document.getElementById("bricks").innerHTML=
-"BRICKS NOS : "+bricks+
+"BRICKS NOS: "+bricks+" Nos"
 }
 
 function slabCalc(){
@@ -138,7 +138,7 @@ window.open(url)
 <button onclick="costCalc()">Calculate</button>
 <h3 id="cost"></h3>
 </div>
-</section><section id="material">
+</section><section id="Bricks">
 <h2>Bricks Calculator</h2>
 <div class="box">
 <input id="area2" placeholder="Area (metercube)">
