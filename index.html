@@ -1,14 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Er. Ankur Rai | Civil Engineer</title>
+<title>Er. Ankur Rai Civil Engineer | House Planning, Design & Construction</title>
 
-<meta name="description" content="Er. Ankur Rai Civil Engineer - House Planning, Structural Design, Estimation, BOQ, Site Supervision & Construction Services">
+<meta name="description" content="Er. Ankur Rai - Professional Civil Engineer in Rajasthan. House Planning, Structural Design, BOQ, Estimation, Construction & Site Supervision Services.">
 
-<meta name="keywords" content="Civil Engineer, House Planning, Structural Design, BOQ, Construction, Ankur Rai">
+<meta name="keywords" content="Civil Engineer Rajasthan, House Planning, Structural Design, BOQ, Construction, Ankur Rai">
+
+<!-- Google Verification (replace code later) -->
+<meta name="google-site-verification" content="YOUR_VERIFICATION_CODE">
+
+<!-- Location SEO -->
+<meta name="geo.region" content="IN-RJ">
+<meta name="geo.placename" content="Rajasthan">
+<meta name="geo.position" content="29.0;73.0">
+
+<!-- Sitemap -->
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 
 <style>
 body{font-family:Arial;margin:0;background:#f4f4f4}
@@ -18,108 +30,69 @@ nav a{color:white;margin:15px;text-decoration:none;font-weight:bold}
 section{padding:40px;text-align:center}
 .services{display:flex;flex-wrap:wrap;justify-content:center}
 .services div{background:white;width:220px;margin:10px;padding:20px;border-radius:10px;box-shadow:0 0 10px #ccc}
-.gallery img{width:260px;margin:10px;border-radius:10px}
 .box{background:white;padding:25px;max-width:400px;margin:auto;border-radius:10px;box-shadow:0 0 10px #ccc}
 input,textarea,select{width:100%;padding:10px;margin:10px 0;border:1px solid #ccc;border-radius:5px}
 button{background:#0d1b2a;color:white;padding:10px;border:none;border-radius:5px;width:100%}
-.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:15px 20px;border-radius:40px;text-decoration:none}
-.call{position:fixed;bottom:80px;right:20px;background:#007BFF;color:white;padding:15px 20px;border-radius:40px;text-decoration:none}
 footer{background:#0d1b2a;color:white;padding:20px;text-align:center}
 </style>
 
 <script>
 
-// COST
+// ENTER + AUTO FOCUS
+document.addEventListener("keydown", function(e){
+if(e.key==="Enter"){
+e.preventDefault()
+
+if(document.activeElement.id==="area"){costCalc()}
+
+if(document.activeElement.id==="mcube"){brickCalc()}
+
+if(document.activeElement.id==="cl"){cb.focus();return;}
+if(document.activeElement.id==="cb"){cd.focus();return;}
+if(document.activeElement.id==="cd"){grade.focus();return;}
+if(document.activeElement.id==="grade"){concreteCalc()}
+
+if(document.activeElement.id==="len"){wid.focus();return;}
+if(document.activeElement.id==="wid"){slabCalc()}
+
+if(document.activeElement.id==="dia"){slen.focus();return;}
+if(document.activeElement.id==="slen"){steelCalc()}
+
+if(document.activeElement.id==="qty"){rate.focus();return;}
+if(document.activeElement.id==="rate"){boqCalc()}
+}
+})
+
+// CALCULATORS
 function costCalc(){
-var area=document.getElementById("area").value
-var cost=area*1450
-document.getElementById("cost").innerHTML="Estimated Cost ₹ "+cost
+var a=area.value
+cost.innerHTML="₹ "+(a*1450)
 }
 
-// BRICKS
 function brickCalc(){
-var mcube=document.getElementById("mcube").value
-var bricks=mcube*500
-document.getElementById("bricks").innerHTML="Bricks Required: "+bricks+" Nos"
+var v=mcube.value
+bricks.innerHTML="Bricks: "+(v*500)
 }
 
-// SLAB STEEL
 function slabCalc(){
-var l=document.getElementById("len").value
-var b=document.getElementById("wid").value
-var steel=l*b*4
-document.getElementById("slabResult").innerHTML="Steel Required: "+steel+" kg"
+slab.innerHTML="Steel: "+(len.value*wid.value*4)+" kg"
 }
 
-// CONCRETE
-function concreteCalc(){
-var l=parseFloat(document.getElementById("cl").value);
-var b=parseFloat(document.getElementById("cb").value);
-var d=parseFloat(document.getElementById("cd").value);
-var grade=document.getElementById("grade").value;
-
-if(isNaN(l)||isNaN(b)||isNaN(d)){
-alert("Fill all fields"); return;
-}
-
-var wet=l*b*d;
-var dry=wet*1.54;
-
-var ratio={
-"M5":[1,5,10],
-"M10":[1,3,6],
-"M15":[1,2,4],
-"M20":[1,1.5,3],
-"M25":[1,1,2]
-};
-
-var r=ratio[grade];
-var sum=r[0]+r[1]+r[2];
-
-var cement=(r[0]/sum)*dry;
-var sand=(r[1]/sum)*dry;
-var agg=(r[2]/sum)*dry;
-
-var bags=cement/0.035;
-
-document.getElementById("concreteResult").innerHTML=
-"Volume: "+wet.toFixed(2)+" m³<br>"+
-"Cement: "+bags.toFixed(1)+" bags<br>"+
-"Sand: "+sand.toFixed(2)+" m³<br>"+
-"Aggregate: "+agg.toFixed(2)+" m³";
-}
-
-// STEEL WEIGHT
 function steelCalc(){
-var dia=document.getElementById("dia").value
-var length=document.getElementById("slen").value
-
-var weight=(dia*dia/162)*length
-
-document.getElementById("steelResult").innerHTML=
-"Steel Weight: "+weight.toFixed(2)+" kg"
+steel.innerHTML="Weight: "+((dia.value*dia.value/162)*slen.value).toFixed(2)+" kg"
 }
 
-// BOQ
 function boqCalc(){
-var qty=document.getElementById("qty").value
-var rate=document.getElementById("rate").value
-var total=qty*rate
-
-document.getElementById("boqResult").innerHTML=
-"Total Cost ₹ "+total
+boq.innerHTML="₹ "+(qty.value*rate.value)
 }
 
-// WHATSAPP
-function sendMsg(){
-var name=document.getElementById("name").value
-var phone=document.getElementById("phone").value
-var msg=document.getElementById("msg").value
-
-var url="https://wa.me/919682863575?text="
-+"Name: "+name+"%0aPhone: "+phone+"%0aMessage: "+msg
-
-window.open(url)
+function concreteCalc(){
+var l=parseFloat(cl.value),b=parseFloat(cb.value),d=parseFloat(cd.value)
+var wet=l*b*d,dry=wet*1.54
+var r={"M10":[1,3,6],"M15":[1,2,4],"M20":[1,1.5,3],"M25":[1,1,2]}[grade.value]
+var s=r[0]+r[1]+r[2]
+var c=(r[0]/s)*dry
+concrete.innerHTML="Vol:"+wet.toFixed(2)+" m³<br>Cement:"+(c/0.035).toFixed(1)+" bags"
 }
 
 </script>
@@ -130,115 +103,90 @@ window.open(url)
 
 <header>
 <h1>Er. Ankur Rai</h1>
-<p>Civil Engineer | House Planning | Structural Design</p>
+<p>Civil Engineer in Rajasthan | House Planning | Structural Design</p>
 </header>
 
 <nav>
 <a href="#">Home</a>
 <a href="#services">Services</a>
 <a href="#cost">Cost</a>
-<a href="#bricks">Bricks</a>
-<a href="#concrete">Concrete</a>
-<a href="#slab">Slab</a>
-<a href="#steel">Steel</a>
-<a href="#boq">BOQ</a>
 <a href="#contact">Contact</a>
 </nav>
 
 <section>
-<h2>Professional Civil Engineering Services</h2>
-<p>House Planning | Structural Design | Estimation | Site Work</p>
+<h2>Civil Engineer in Rajasthan</h2>
+<p>We provide house planning, structural design, BOQ and construction services in Rajasthan.</p>
 </section>
 
 <section id="services">
-<h2>Services</h2>
+<h2>Our Services</h2>
 <div class="services">
 <div>House Planning</div>
-<div>2D / 3D Drawing</div>
 <div>Structural Design</div>
-<div>BOQ</div>
-<div>Site Supervision</div>
+<div>BOQ & Estimation</div>
+<div>Construction</div>
 </div>
 </section>
 
 <section id="cost">
-<h2>Construction Cost</h2>
+<h2>Construction Calculator</h2>
+
 <div class="box">
 <input id="area" placeholder="Area sqft">
-<button onclick="costCalc()">Calculate</button>
+<button onclick="costCalc()">Cost</button>
 <h3 id="cost"></h3>
 </div>
-</section>
 
-<section id="bricks">
-<h2>Bricks Calculator</h2>
 <div class="box">
 <input id="mcube" placeholder="Volume m³">
-<button onclick="brickCalc()">Calculate</button>
+<button onclick="brickCalc()">Bricks</button>
 <h3 id="bricks"></h3>
 </div>
-</section>
 
-<section id="concrete">
-<h2>Concrete Calculator</h2>
 <div class="box">
 <input id="cl" placeholder="Length">
 <input id="cb" placeholder="Breadth">
 <input id="cd" placeholder="Depth">
 <select id="grade">
-<option>M10</option>
-<option>M15</option>
-<option>M20</option>
-<option>M25</option>
+<option>M10</option><option>M15</option>
+<option>M20</option><option>M25</option>
 </select>
-<button onclick="concreteCalc()">Calculate</button>
-<h3 id="concreteResult"></h3>
+<button onclick="concreteCalc()">Concrete</button>
+<h3 id="concrete"></h3>
 </div>
-</section>
 
-<section id="slab">
-<h2>Slab Steel</h2>
 <div class="box">
-<input id="len" placeholder="Length ft">
-<input id="wid" placeholder="Width ft">
-<button onclick="slabCalc()">Calculate</button>
-<h3 id="slabResult"></h3>
+<input id="len" placeholder="Length">
+<input id="wid" placeholder="Width">
+<button onclick="slabCalc()">Slab Steel</button>
+<h3 id="slab"></h3>
 </div>
-</section>
 
-<section id="steel">
-<h2>Steel Weight Calculator</h2>
 <div class="box">
-<input id="dia" placeholder="Diameter (mm)">
-<input id="slen" placeholder="Length (m)">
-<button onclick="steelCalc()">Calculate</button>
-<h3 id="steelResult"></h3>
+<input id="dia" placeholder="Dia mm">
+<input id="slen" placeholder="Length m">
+<button onclick="steelCalc()">Steel Weight</button>
+<h3 id="steel"></h3>
 </div>
-</section>
 
-<section id="boq">
-<h2>BOQ Calculator</h2>
 <div class="box">
 <input id="qty" placeholder="Quantity">
 <input id="rate" placeholder="Rate">
-<button onclick="boqCalc()">Calculate</button>
-<h3 id="boqResult"></h3>
+<button onclick="boqCalc()">BOQ</button>
+<h3 id="boq"></h3>
 </div>
+
 </section>
 
 <section id="contact">
-<h2>Contact</h2>
-<input id="name" placeholder="Name">
-<input id="phone" placeholder="Phone">
-<textarea id="msg" placeholder="Message"></textarea>
-<button onclick="sendMsg()">Send WhatsApp</button>
+<h2>Contact Engineer</h2>
+<input placeholder="Name">
+<input placeholder="Phone">
+<textarea placeholder="Message"></textarea>
 </section>
 
-<a class="whatsapp" href="https://wa.me/919682863575">WhatsApp</a>
-<a class="call" href="tel:9682863575">Call</a>
-
 <footer>
-<p>© 2026 Er. Ankur Rai</p>
+© 2026 Er. Ankur Rai Civil Engineer
 </footer>
 
 </body>
