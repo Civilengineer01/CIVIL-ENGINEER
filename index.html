@@ -58,16 +58,46 @@ var cost=area*1450
 document.getElementById("cost").innerHTML="Estimated Cost ₹ "+cost
 }
 
-function materialCalc(){
-var area=document.getElementById("area2").value
-var cement=area*0.4
-var sand=area*0.6
-var steel=area*4
+function concreteCalc(){
 
-document.getElementById("mat").innerHTML=
-"Cement Bags: "+cement+
-"<br>Sand (ton): "+sand+
-"<br>Steel (kg): "+steel
+var l=parseFloat(document.getElementById("cl").value);
+var b=parseFloat(document.getElementById("cb").value);
+var d=parseFloat(document.getElementById("cd").value);
+var grade=document.getElementById("grade").value.toUpperCase();
+
+var wet=l*b*d;
+var dry=wet*1.54;
+
+var ratioMap={
+"M5":[1,5,10],
+"M7.5":[1,4,8],
+"M10":[1,3,6],
+"M15":[1,2,4],
+"M20":[1,1.5,3],
+"M25":[1,1,2]
+};
+
+if(!ratioMap[grade]){
+alert("Enter valid grade like M5, M10, M15, M20, M25");
+return;
+}
+
+var parts=ratioMap[grade];
+var sum=parts[0]+parts[1]+parts[2];
+
+var cementVol=(parts[0]/sum)*dry;
+var sandVol=(parts[1]/sum)*dry;
+var aggVol=(parts[2]/sum)*dry;
+
+var bags=cementVol/0.035;
+
+document.getElementById("concrete").innerHTML=
+"Grade: "+grade+
+"<br>Concrete Volume: "+wet.toFixed(2)+" m³"+
+"<br>Cement: "+bags.toFixed(1)+" bags"+
+"<br>Sand: "+sandVol.toFixed(2)+" m³"+
+"<br>Aggregate: "+aggVol.toFixed(2)+" m³";
+
 }
 
 function slabCalc(){
