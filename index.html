@@ -37,9 +37,7 @@ margin:auto;
 }
 
 @media(max-width:768px){
-.calc-container{
-grid-template-columns:repeat(1,1fr);
-}
+.calc-container{grid-template-columns:1fr;}
 }
 
 input,textarea,select{width:100%;padding:10px;margin:10px 0;border:1px solid #ccc;border-radius:5px}
@@ -74,30 +72,6 @@ footer{background:#0d1b2a;color:white;padding:20px;text-align:center}
 
 <script>
 
-// ENTER + AUTO FOCUS
-document.addEventListener("keydown", function(e){
-if(e.key==="Enter"){
-e.preventDefault()
-
-if(document.activeElement.id==="area"){costCalc()}
-if(document.activeElement.id==="mcube"){brickCalc()}
-
-if(document.activeElement.id==="cl"){cb.focus();return;}
-if(document.activeElement.id==="cb"){cd.focus();return;}
-if(document.activeElement.id==="cd"){grade.focus();return;}
-if(document.activeElement.id==="grade"){concreteCalc()}
-
-if(document.activeElement.id==="len"){wid.focus();return;}
-if(document.activeElement.id==="wid"){slabCalc()}
-
-if(document.activeElement.id==="dia"){slen.focus();return;}
-if(document.activeElement.id==="slen"){steelCalc()}
-
-if(document.activeElement.id==="qty"){rate.focus();return;}
-if(document.activeElement.id==="rate"){boqCalc()}
-}
-})
-
 // CALCULATORS
 
 function costCalc(){
@@ -121,7 +95,6 @@ boq.innerHTML="₹ "+(qty.value*rate.value)
 }
 
 function concreteCalc(){
-
 var l=parseFloat(cl.value)
 var b=parseFloat(cb.value)
 var d=parseFloat(cd.value)
@@ -154,6 +127,20 @@ concrete.innerHTML=
 "Cement: "+(cement/0.035).toFixed(1)+" bags<br>"+
 "Sand: "+sand.toFixed(2)+" m³<br>"+
 "Aggregate: "+agg.toFixed(2)+" m³"
+}
+
+// WHATSAPP CONTACT
+function sendMsg(){
+var name=document.getElementById("name").value
+var phone=document.getElementById("phone").value
+var msg=document.getElementById("msg").value
+
+var url="https://wa.me/919682863575?text="
++"Name: "+name+"%0a"
++"Phone: "+phone+"%0a"
++"Message: "+msg
+
+window.open(url)
 }
 
 </script>
@@ -192,7 +179,7 @@ concrete.innerHTML=
 </section>
 
 <section id="projects">
-<h2>Our Civil Engineering Work</h2>
+<h2>Our Work</h2>
 <div class="gallery">
 <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e">
 <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625">
@@ -210,24 +197,24 @@ concrete.innerHTML=
 
 <div class="box">
 <h3>Construction Cost</h3>
-<input id="area" placeholder="Area (sqft)">
+<input id="area" placeholder="Area (sqft)" onkeypress="if(event.key==='Enter'){costCalc()}">
 <button onclick="costCalc()">Calculate</button>
 <h3 id="cost"></h3>
 </div>
 
 <div class="box">
 <h3>Bricks Calculator</h3>
-<input id="mcube" placeholder="Volume (m³)">
+<input id="mcube" placeholder="Volume (m³)" onkeypress="if(event.key==='Enter'){brickCalc()}">
 <button onclick="brickCalc()">Calculate</button>
 <h3 id="bricks"></h3>
 </div>
 
 <div class="box">
 <h3>Concrete Calculator</h3>
-<input id="cl" placeholder="Length">
-<input id="cb" placeholder="Breadth">
-<input id="cd" placeholder="Depth">
-<select id="grade">
+<input id="cl" placeholder="Length" onkeypress="if(event.key==='Enter'){cb.focus()}">
+<input id="cb" placeholder="Breadth" onkeypress="if(event.key==='Enter'){cd.focus()}">
+<input id="cd" placeholder="Depth" onkeypress="if(event.key==='Enter'){grade.focus()}">
+<select id="grade" onkeypress="if(event.key==='Enter'){concreteCalc()}">
 <option>M5</option>
 <option>M7.5</option>
 <option>M10</option>
@@ -241,24 +228,24 @@ concrete.innerHTML=
 
 <div class="box">
 <h3>Slab Steel</h3>
-<input id="len" placeholder="Length">
-<input id="wid" placeholder="Width">
+<input id="len" placeholder="Length" onkeypress="if(event.key==='Enter'){wid.focus()}">
+<input id="wid" placeholder="Width" onkeypress="if(event.key==='Enter'){slabCalc()}">
 <button onclick="slabCalc()">Calculate</button>
 <h3 id="slab"></h3>
 </div>
 
 <div class="box">
 <h3>Steel Weight</h3>
-<input id="dia" placeholder="Diameter (mm)">
-<input id="slen" placeholder="Length (m)">
+<input id="dia" placeholder="Diameter (mm)" onkeypress="if(event.key==='Enter'){slen.focus()}">
+<input id="slen" placeholder="Length (m)" onkeypress="if(event.key==='Enter'){steelCalc()}">
 <button onclick="steelCalc()">Calculate</button>
 <h3 id="steel"></h3>
 </div>
 
 <div class="box">
 <h3>BOQ Calculator</h3>
-<input id="qty" placeholder="Quantity">
-<input id="rate" placeholder="Rate">
+<input id="qty" placeholder="Quantity" onkeypress="if(event.key==='Enter'){rate.focus()}">
+<input id="rate" placeholder="Rate" onkeypress="if(event.key==='Enter'){boqCalc()}">
 <button onclick="boqCalc()">Calculate</button>
 <h3 id="boq"></h3>
 </div>
@@ -268,9 +255,12 @@ concrete.innerHTML=
 
 <section id="contact">
 <h2>Contact Engineer</h2>
-<input placeholder="Name">
-<input placeholder="Phone">
-<textarea placeholder="Message"></textarea>
+<div class="box">
+<input id="name" placeholder="Your Name">
+<input id="phone" placeholder="Mobile Number">
+<textarea id="msg" placeholder="Your Message"></textarea>
+<button onclick="sendMsg()">Send on WhatsApp</button>
+</div>
 </section>
 
 <a class="whatsapp" href="https://wa.me/919682863575" target="_blank">WhatsApp</a>
